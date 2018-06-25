@@ -39,41 +39,60 @@ else
 			</th>
 		</tr>
 		<?php
-	foreach($extensions as $extension)
+	foreach($extensions as $extensionObj)
 	{
 		?>
-		<tr class="row<?php echo $i % 2; ?>">
+		<tr class="row<?php echo $i++ % 2; ?>">
 			<td>
 				<?php
-				echo htmlspecialchars($extension->type);
+				echo htmlspecialchars($extensionObj->type);
 				?>
 			</td>
 			<td>
 				<?php
-				echo $extension->folder;
+				echo $extensionObj->folder;
 				?>
 			</td>
 			<td>
 				<?php
-				if (strtolower($extension->name) == $extension->element ||
-					strtolower($extension->name) == 'plg_' . $extension->folder . '_' . $extension->element)
+				echo htmlspecialchars($extensionObj->name);
+				?>
+			</td>
+			<td>
+				<?php
+				switch($extensionObj->type)
 				{
-					echo '&nbsp;';
-				}
-				else
-				{
-					echo htmlspecialchars($extension->name);
+					case 'component':
+						echo '<a href="index.php?option=' . $extensionObj->element . '">' .
+							$extensionObj->element .
+							'</a>';
+						break;
+					case 'module':
+						echo '<a href="index.php?option=com_modules&client_id=' . $extensionObj->client_id . '&filter[module]=' . $extensionObj->element . '">' .
+							$extensionObj->element .
+							'</a>';
+						break;
+					case 'plugin':
+						echo '<a href="index.php?option=com_plugins&view=plugins&filter[search]=' . urlencode($extensionObj->name) . '&filter[folder]=' . $extensionObj->folder . '">' .
+							$extensionObj->element;
+						'</a>';
+						break;
+					case 'template':
+						echo '<a href="index.php?option=com_templates&view=template&id=' . $extensionObj->extension_id . '">' .
+							$extensionObj->element .
+							'</a>';
+						break;
+					default:
+						echo $extensionObj->element;
+						break;
 				}
 				?>
 			</td>
 			<td>
 				<?php
-				echo $extension->element;
-				?>
-			</td>
-			<td>
-				<?php
-				echo $extension->extension_id;
+				echo '<a href="index.php?option=com_installer&view=manage&filter[search]=' . urlencode($extensionObj->name) . '&filter[type]=' . $extensionObj->type . '">' .
+					$extensionObj->extension_id;
+				'</a>';
 				?>
 			</td>
 		</tr>
