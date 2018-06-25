@@ -26,7 +26,13 @@ else
 				<?php echo JText::_('MOD_BFPACKAGELIST_HEADING_TYPE'); ?>
 			</th>
 			<th class="nowrap">
+				<?php echo JText::_('MOD_BFPACKAGELIST_HEADING_FOLDER'); ?>
+			</th>
+			<th class="nowrap">
 				<?php echo JText::_('MOD_BFPACKAGELIST_HEADING_NAME'); ?>
+			</th>
+			<th class="nowrap">
+				<?php echo JText::_('MOD_BFPACKAGELIST_HEADING_ELEMENT'); ?>
 			</th>
 			<th class="nowrap">
 				<?php echo JText::_('MOD_BFPACKAGELIST_HEADING_ID'); ?>
@@ -44,7 +50,25 @@ else
 			</td>
 			<td>
 				<?php
-				echo htmlspecialchars($extension->name);
+				echo $extension->folder;
+				?>
+			</td>
+			<td>
+				<?php
+				if (strtolower($extension->name) == $extension->element ||
+					strtolower($extension->name) == 'plg_' . $extension->folder . '_' . $extension->element)
+				{
+					echo '&nbsp;';
+				}
+				else
+				{
+					echo htmlspecialchars($extension->name);
+				}
+				?>
+			</td>
+			<td>
+				<?php
+				echo $extension->element;
 				?>
 			</td>
 			<td>

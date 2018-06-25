@@ -20,7 +20,7 @@ if (empty($package_id))
 else {
 	$db = JFactory::getDbo();
 	$query = $db->getQuery(true);
-	$query->select('e.`extension_id`, e.`name`, e.`type`, e.`element`')
+	$query->select('e.`extension_id`, e.`name`, e.`type`, e.`folder`, e.`element`')
 		->from('`#__extensions` AS e')
 		->where('e.`package_id` = ' . $package_id)
 		->order('e.`type`, e.`folder`, e.`name` ASC');
